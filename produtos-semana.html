@@ -1,324 +1,71 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Produtos da Semana</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f5f5;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      color: #1a1a1a;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    header p {
-      color: #888;
-      font-size: 0.95rem;
-      margin-top: 6px;
-    }
-
-    .semana-badge {
-      display: inline-block;
-      background: #111;
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-
-    .card-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: #f0f0f0;
-      display: block;
-    }
-
-    .card-img-placeholder {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: #bbb;
-    }
-
-    .card-body {
-      padding: 18px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .card-number {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #bbb;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      line-height: 1.4;
-    }
-
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      color: #888;
-    }
-
-    .card-meta span { font-weight: 600; color: #555; }
-
-    .card-meta .heart { color: #e0245e; }
-
-    .divider {
-      height: 1px;
-      background: #f0f0f0;
-      margin: 2px 0;
-    }
-
-    .card-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.15s, transform 0.1s;
-      cursor: pointer;
-    }
-
-    .btn:hover { opacity: 0.88; transform: scale(0.98); }
-    .btn:active { transform: scale(0.95); }
-
-    .btn-ali {
-      background: #ff6a00;
-      color: #fff;
-    }
-
-    .btn-ig {
-      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: #fff;
-    }
-
-    .btn-copy {
-      background: #f5f5f5;
-      color: #444;
-      border: 1px solid #e0e0e0;
-      font-size: 0.78rem;
-    }
-
-    .btn svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      fill: currentColor;
-    }
-
-    .copied-msg {
-      display: none;
-      font-size: 0.75rem;
-      color: #22a06b;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      color: #bbb;
-      font-size: 0.8rem;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="semana-badge">📦 Seleção Semanal</div>
-  <h1>Produtos da Semana</h1>
-  <p id="data-semana"></p>
-</header>
-
-<div class="grid" id="grid"></div>
-
-<footer>
-  Atualizado toda semana · Art Bross
-</footer>
-
-<script>
-// ============================================================
-//  ✏️  EDITE APENAS AQUI — troque os dados toda semana
-// ============================================================
-const SEMANA = "23"; // número da semana (opcional, pode deixar em branco)
-
-const PRODUTOS = [
-  {
-    nome: "Mini Liquidificador Portátil",
-    curtidas_instagram: "2 mil",
-    imagem: "https://ae-pic-a1.aliexpress-media.com/kf/S1234.jpg", // cole a URL da imagem
-    link_aliexpress: "https://www.aliexpress.com/item/XXXXX.html",
-    link_instagram: "https://www.instagram.com/p/DXmystzGHma/"
-  },
-  {
-    nome: "Produto 2 — Coloque o nome aqui",
-    curtidas_instagram: "5 mil",
-    imagem: "",
-    link_aliexpress: "https://www.aliexpress.com/item/XXXXX.html",
-    link_instagram: "https://www.instagram.com/p/XXXXX/"
-  },
-  {
-    nome: "Produto 3 — Coloque o nome aqui",
-    curtidas_instagram: "10 mil",
-    imagem: "",
-    link_aliexpress: "https://www.aliexpress.com/item/XXXXX.html",
-    link_instagram: "https://www.instagram.com/p/XXXXX/"
-  },
-  {
-    nome: "Produto 4 — Coloque o nome aqui",
-    curtidas_instagram: "3 mil",
-    imagem: "",
-    link_aliexpress: "https://www.aliexpress.com/item/XXXXX.html",
-    link_instagram: "https://www.instagram.com/p/XXXXX/"
-  },
-  {
-    nome: "Produto 5 — Coloque o nome aqui",
-    curtidas_instagram: "8 mil",
-    imagem: "",
-    link_aliexpress: "https://www.aliexpress.com/item/XXXXX.html",
-    link_instagram: "https://www.instagram.com/p/XXXXX/"
-  }
-];
-// ============================================================
-
-// — ícones SVG inline —
-const ICON_ALI = `<svg viewBox="0 0 24 24"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg>`;
-const ICON_IG  = `<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>`;
-const ICON_COPY = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
-
-function semanaAtual() {
-  const agora = new Date();
-  const inicio = new Date(agora.getFullYear(), 0, 1);
-  const diff = agora - inicio;
-  const umaSemana = 1000 * 60 * 60 * 24 * 7;
-  return Math.ceil(diff / umaSemana);
-}
-
-function formatarData(d) {
-  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-}
-
-function copiarLink(link, btn) {
-  navigator.clipboard.writeText(link).then(() => {
-    const msg = btn.parentElement.querySelector('.copied-msg');
-    msg.style.display = 'block';
-    setTimeout(() => msg.style.display = 'none', 2000);
-  });
-}
-
-// Renderiza os cards
-const grid = document.getElementById('grid');
-const semana = SEMANA || semanaAtual();
-document.getElementById('data-semana').textContent =
-  `Semana ${semana} · ${formatarData(new Date())}`;
-
-PRODUTOS.forEach((p, i) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-
-  const imgHtml = p.imagem
-    ? `<img class="card-img" src="${p.imagem}" alt="${p.nome}" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
-    : '';
-  const placeholderStyle = p.imagem ? 'display:none' : '';
-
-  card.innerHTML = `
-    ${imgHtml}
-    <div class="card-img-placeholder" style="${placeholderStyle}">📦</div>
-    <div class="card-body">
-      <div class="card-number">Produto ${i + 1}</div>
-      <div class="card-title">${p.nome}</div>
-      <div class="card-meta">
-        <span class="heart">♥</span>
-        <span>${p.curtidas_instagram}</span> curtidas no Instagram
-      </div>
-      <div class="divider"></div>
-      <div class="card-links">
-        <a class="btn btn-ali" href="${p.link_aliexpress}" target="_blank" rel="noopener">
-          ${ICON_ALI} Ver no AliExpress
-        </a>
-        <a class="btn btn-ig" href="${p.link_instagram}" target="_blank" rel="noopener">
-          ${ICON_IG} Ver no Instagram
-        </a>
-        <button class="btn btn-copy" onclick="copiarLink('${p.link_aliexpress}', this)">
-          ${ICON_COPY} Copiar link AliExpress
-        </button>
-        <div class="copied-msg">✓ Link copiado!</div>
-      </div>
-    </div>
-  `;
-
-  grid.appendChild(card);
-});
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Produtos da Semana</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#f4f4f4;min-height:100vh;padding:36px 16px 60px}
+header{text-align:center;margin-bottom:44px}
+.badge{display:inline-block;background:#111;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:10px}
+header h1{font-size:2rem;color:#111;font-weight:800}
+header p{color:#999;font-size:.9rem;margin-top:5px}
+.week-section{max-width:1200px;margin:0 auto 40px}
+.week-label{margin-bottom:18px}
+.week-label span{font-size:.82rem;font-weight:700;color:#888;background:#ebebeb;padding:5px 14px;border-radius:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.11)}
+.card-media{width:100%;height:630px;overflow:hidden;background:#f0f0f0;position:relative;display:flex;justify-content:center}
+.card-media iframe{width:340px;height:800px;border:none;display:block;flex-shrink:0}
+.btn-fs{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:7px;padding:5px 9px;font-size:.9rem;cursor:pointer;z-index:2;backdrop-filter:blur(4px)}
+.btn-fs:hover{background:rgba(0,0,0,.85)}
+.card-img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.card-placeholder{width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#eee,#ddd);display:flex;align-items:center;justify-content:center;font-size:3rem;color:#ccc}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:8px}
+.card-meta{display:flex;align-items:center;gap:5px;font-size:.8rem;color:#999}
+.card-meta span{font-weight:600;color:#555}
+.heart{color:#e0245e}
+.card-links{display:flex;flex-direction:column;gap:7px}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:10px;font-size:.82rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:opacity .15s}
+.btn:hover{opacity:.87}
+.btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+.btn-ali{background:#ff6a00;color:#fff}
+.btn-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.btn-copy{background:#f2f2f2;color:#444;border:1px solid #e0e0e0;font-size:.76rem}
+.copied-msg{display:none;font-size:.73rem;color:#22a06b;text-align:center;font-weight:600}
+footer{text-align:center;margin-top:40px;color:#ccc;font-size:.78rem}
+</style></head><body>
+<header><div class="badge">📦 Seleção Semanal</div><h1>Produtos da Semana</h1><p>Atualizado toda semana · Art Bross</p></header>
+<section class="week-section"><div class="week-label"><span>📅 21 de junho de 2026</span></div><div class="grid"><div class="card"><div class="card-media"><iframe src="https://www.instagram.com/p/DZgkU5KApiT/embed/" scrolling="no" allowtransparency="true" loading="lazy" allowfullscreen id="igf_0"></iframe><button class="btn-fs" onclick="document.getElementById('igf_0').requestFullscreen()" title="Tela cheia">⛶</button></div><div class="card-body">
+        <div class="card-meta"><span class="heart">♥</span><span>8k</span> curtidas</div>
+        <div class="card-links">
+          <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005006497785357.html?aff_fcid=0f31aa04e0b047448840f270a3110fed-1782087106749-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
+          <a class="btn btn-ig" href="https://www.instagram.com/p/DZgkU5KApiT/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
+          <button class="btn btn-copy" onclick="cp('https://pt.aliexpress.com/item/1005006497785357.html?aff_fcid=0f31aa04e0b047448840f270a3110fed-1782087106749-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y',this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar link AliExpress</button><div class="copied-msg">✓ Copiado!</div>
+        </div></div></div><div class="card"><div class="card-media"><iframe src="https://www.instagram.com/p/DZK318BtJIA/embed/" scrolling="no" allowtransparency="true" loading="lazy" allowfullscreen id="igf_1"></iframe><button class="btn-fs" onclick="document.getElementById('igf_1').requestFullscreen()" title="Tela cheia">⛶</button></div><div class="card-body">
+        <div class="card-meta"><span class="heart">♥</span><span>8k</span> curtidas</div>
+        <div class="card-links">
+          <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005012164593550.html?aff_fcid=886039f5e50645adae05c933e958fa99-1782087882540-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
+          <a class="btn btn-ig" href="https://www.instagram.com/p/DZK318BtJIA/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
+          <button class="btn btn-copy" onclick="cp('https://pt.aliexpress.com/item/1005012164593550.html?aff_fcid=886039f5e50645adae05c933e958fa99-1782087882540-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y',this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar link AliExpress</button><div class="copied-msg">✓ Copiado!</div>
+        </div></div></div><div class="card"><div class="card-media"><iframe src="https://www.instagram.com/p/DYvUeq1OTtj/embed/" scrolling="no" allowtransparency="true" loading="lazy" allowfullscreen id="igf_2"></iframe><button class="btn-fs" onclick="document.getElementById('igf_2').requestFullscreen()" title="Tela cheia">⛶</button></div><div class="card-body">
+        <div class="card-meta"><span class="heart">♥</span><span>53k</span> curtidas</div>
+        <div class="card-links">
+          <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010734379606.html?spm=a2g0o.imagesearchproductlist.main.5.68ecs8Exs8Exk2&algo_pvid=4b526d76-751e-45f6-bb50-2389af5cbd23&pdp_ext_f=%7B%22order%22%3A%225106%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005010734379606%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
+          <a class="btn btn-ig" href="https://www.instagram.com/p/DYvUeq1OTtj/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
+          <button class="btn btn-copy" onclick="cp('https://pt.aliexpress.com/item/1005010734379606.html?spm=a2g0o.imagesearchproductlist.main.5.68ecs8Exs8Exk2&algo_pvid=4b526d76-751e-45f6-bb50-2389af5cbd23&pdp_ext_f=%7B%22order%22%3A%225106%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005010734379606%7C_p_origin_prod%3A',this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar link AliExpress</button><div class="copied-msg">✓ Copiado!</div>
+        </div></div></div><div class="card"><div class="card-media"><iframe src="https://www.instagram.com/p/DY4sq0VR3dO/embed/" scrolling="no" allowtransparency="true" loading="lazy" allowfullscreen id="igf_3"></iframe><button class="btn-fs" onclick="document.getElementById('igf_3').requestFullscreen()" title="Tela cheia">⛶</button></div><div class="card-body">
+        <div class="card-meta"><span class="heart">♥</span><span>98k</span> curtidas</div>
+        <div class="card-links">
+          <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005009097940014.html?aff_fcid=9f5b2e03ec2c4f238743702aecb1b05f-1782088426494-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
+          <a class="btn btn-ig" href="https://www.instagram.com/p/DY4sq0VR3dO/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
+          <button class="btn btn-copy" onclick="cp('https://pt.aliexpress.com/item/1005009097940014.html?aff_fcid=9f5b2e03ec2c4f238743702aecb1b05f-1782088426494-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y',this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar link AliExpress</button><div class="copied-msg">✓ Copiado!</div>
+        </div></div></div><div class="card"><div class="card-media"><iframe src="https://www.instagram.com/p/DZaQD4FulxV/embed/" scrolling="no" allowtransparency="true" loading="lazy" allowfullscreen id="igf_4"></iframe><button class="btn-fs" onclick="document.getElementById('igf_4').requestFullscreen()" title="Tela cheia">⛶</button></div><div class="card-body">
+        <div class="card-meta"><span class="heart">♥</span><span>8k</span> curtidas</div>
+        <div class="card-links">
+          <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005011857022747.html?spm=a2g0o.imagesearchproductlist.main.2.2a6a9qnJ9qnJFK&algo_pvid=83c04490-10c4-468f-b1f2-d017533014e3&pdp_ext_f=%7B%22order%22%3A%2231%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005011857022747%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
+          <a class="btn btn-ig" href="https://www.instagram.com/p/DZaQD4FulxV/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
+          <button class="btn btn-copy" onclick="cp('https://pt.aliexpress.com/item/1005011857022747.html?spm=a2g0o.imagesearchproductlist.main.2.2a6a9qnJ9qnJFK&algo_pvid=83c04490-10c4-468f-b1f2-d017533014e3&pdp_ext_f=%7B%22order%22%3A%2231%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005011857022747%7C_p_origin_prod%3A',this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar link AliExpress</button><div class="copied-msg">✓ Copiado!</div>
+        </div></div></div></div></section>
+<footer>Art Bross · Todos os produtos selecionados manualmente</footer>
+<script>function cp(l,b){navigator.clipboard.writeText(l).then(()=>{const m=b.parentElement.querySelector('.copied-msg');m.style.display='block';setTimeout(()=>m.style.display='none',2000)})}</script>
+</body></html>
