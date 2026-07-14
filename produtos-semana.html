@@ -42,84 +42,249 @@ header p{color:#999;font-size:.9rem;margin-top:5px}
 
 .copied-msg{display:none;font-size:.73rem;color:#22a06b;text-align:center;font-weight:600}
 footer{text-align:center;margin-top:40px;color:#ccc;font-size:.78rem}
+
+.card-badge{display:none;position:absolute;top:10px;right:10px;background:#fff;border-radius:20px;overflow:hidden;border:1px solid #eee;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.12);z-index:2}
+.card-badge.show{display:flex}
+.card-badge .seg{padding:7px 10px;color:#bbb;transition:background .15s,color .15s}
+.card-badge .seg.on.seg-ruim{background:#e24b4a;color:#fff}
+.card-badge .seg.on.seg-talvez{background:#f0a92a;color:#fff}
+.card-badge .seg.on.seg-aprovado{background:#22a06b;color:#fff}
+.rate-box{border-top:1px solid #eee;padding-top:10px;margin-top:2px}
+.rate-toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:#333;cursor:pointer}
+.rate-toggle input{width:18px;height:18px}
+.rate-panel{display:none;margin-top:10px}
+.rate-hint{font-size:12px;color:#999;margin:0 0 8px}
+.rate-scale{display:flex;gap:4px;flex-wrap:wrap}
+.rate-num{width:28px;height:28px;padding:0;font-size:12px;border-radius:6px;background:#f4f4f4;border:1px solid #e2e2e2;color:#333;cursor:pointer}
+.rate-num.sel{background:#111;color:#fff;border-color:#111}
 </style></head><body>
 <header><div class="badge">📦 Seleção Semanal</div><h1>Produtos da Semana</h1><p>Atualizado toda semana · Mauro Rosa</p></header>
-<div class="grid-wrap"><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYOmqqkOspL/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+<div class="grid-wrap"><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYOmqqkOspL/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DYOmqqkOspL">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DYOmqqkOspL/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DYOmqqkOspL/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010382340415.html?aff_fcid=c6c271cd48af412bbf94ed6ff498b01b-1782575630947-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=08c4da153da4402e92ec67d02a12e59c-1782575719104-05239-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=08c4da153da4402e92ec67d02a12e59c-1782575719104-05239-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DX2IQ44xQRz/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DYOmqqkOspL" onchange="toggleRate('DYOmqqkOspL',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DYOmqqkOspL">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DYOmqqkOspL"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DX2IQ44xQRz/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DX2IQ44xQRz">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DX2IQ44xQRz/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DX2IQ44xQRz/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005005646683566.html?aff_fcid=15cb52b568bf4b8588d35e00f45fbc25-1782575249795-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=fbc133e1e16b4904ad3e398f33af1350-1782575338153-08205-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=fbc133e1e16b4904ad3e398f33af1350-1782575338153-08205-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DWRowJVDgqm/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DX2IQ44xQRz" onchange="toggleRate('DX2IQ44xQRz',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DX2IQ44xQRz">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DX2IQ44xQRz"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DWRowJVDgqm/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DWRowJVDgqm">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DWRowJVDgqm/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DWRowJVDgqm/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005008115314080.html?spm=a2g0o.imagesearchproductlist.main.1.6f843rCt3rCt8Q&algo_pvid=779aaef8-3073-4269-b367-4a1914609d81&pdp_ext_f=%7B%22order%22%3A%227%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005008115314080%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DXe43YTmGxh/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DWRowJVDgqm" onchange="toggleRate('DWRowJVDgqm',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DWRowJVDgqm">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DWRowJVDgqm"></div>
+      </div>
+    </div>
+      </div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DXe43YTmGxh/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DXe43YTmGxh">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DXe43YTmGxh/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DXe43YTmGxh/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005009328769834.html?spm=a2g0o.imagesearchproductlist.main.4.1b59tzYxtzYxIM&algo_pvid=90eaca0e-cc43-45dc-ad1c-a25378901c80&pdp_ext_f=%7B%22order%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005009328769834%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZVvuSmRmZ0/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DXe43YTmGxh" onchange="toggleRate('DXe43YTmGxh',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DXe43YTmGxh">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DXe43YTmGxh"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZVvuSmRmZ0/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DZVvuSmRmZ0">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DZVvuSmRmZ0/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DZVvuSmRmZ0/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010489470007.html?spm=a2g0o.imagesearchproductlist.main.2.7a55DCGKDCGKqW&algo_pvid=065a19ab-80ef-42a7-b47e-535c25b0fc0c&pdp_ext_f=%7B%22order%22%3A%22400%22%2C%22spu_best_type%22%3A%22price%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005010489470007%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZe2Lm7Io5F/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DZVvuSmRmZ0" onchange="toggleRate('DZVvuSmRmZ0',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DZVvuSmRmZ0">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DZVvuSmRmZ0"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZe2Lm7Io5F/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DZe2Lm7Io5F">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DZe2Lm7Io5F/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DZe2Lm7Io5F/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005012382027183.html?spm=a2g0o.imagesearchproductlist.main.1.4205NJoLNJoLOi&algo_pvid=8dda0008-c8dd-4a27-8aa4-48b36e23bbb6&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005012382027183%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaDQp1NPAi6/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DZe2Lm7Io5F" onchange="toggleRate('DZe2Lm7Io5F',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DZe2Lm7Io5F">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DZe2Lm7Io5F"></div>
+      </div>
+    </div>
+      </div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaDQp1NPAi6/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DaDQp1NPAi6">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DaDQp1NPAi6/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DaDQp1NPAi6/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010386073200.html?spm=a2g0o.imagesearchproductlist.main.6.4437Xx3WXx3W7j&algo_pvid=5e067d84-254a-49e5-ad94-70d14e771f69&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005010386073200%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaDaSgux29h/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DaDQp1NPAi6" onchange="toggleRate('DaDQp1NPAi6',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DaDQp1NPAi6">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DaDQp1NPAi6"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaDaSgux29h/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DaDaSgux29h">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DaDaSgux29h/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DaDaSgux29h/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005007174798563.html?aff_fcid=22a9a44736234840a868420d813289fc-1782580131330-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=d19bd9a1d68e4dcc98fe78ea40340574-1782580219740-01300-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=d19bd9a1d68e4dcc98fe78ea40340574-1782580219740-01300-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaAmQStubde/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DaDaSgux29h" onchange="toggleRate('DaDaSgux29h',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DaDaSgux29h">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DaDaSgux29h"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DaAmQStubde/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DaAmQStubde">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DaAmQStubde/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DaAmQStubde/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005011983415562.html?spm=a2g0o.imagesearchproductlist.main.4.50fc9neW9neWqL&algo_pvid=048f7ed7-b4ed-41bc-982e-93bec767af52&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005011983415562%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYdBRZDSsmI/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DaAmQStubde" onchange="toggleRate('DaAmQStubde',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DaAmQStubde">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DaAmQStubde"></div>
+      </div>
+    </div>
+      </div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYdBRZDSsmI/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DYdBRZDSsmI">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DYdBRZDSsmI/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DYdBRZDSsmI/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010448968461.html?aff_fcid=ab6ea7f1ab4a460596b6596a0b7aea8e-1782578179959-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=8106c1cb7ff146cb9f867fd7897e9216-1782578268104-07731-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=8106c1cb7ff146cb9f867fd7897e9216-1782578268104-07731-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZgkU5KApiT/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DYdBRZDSsmI" onchange="toggleRate('DYdBRZDSsmI',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DYdBRZDSsmI">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DYdBRZDSsmI"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZgkU5KApiT/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DZgkU5KApiT">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DZgkU5KApiT/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DZgkU5KApiT/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005006497785357.html?aff_fcid=0f31aa04e0b047448840f270a3110fed-1782087106749-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=4639a04401a1442da079ef90c9edbcd3-1782087190927-04426-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYvUeq1OTtj/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DZgkU5KApiT" onchange="toggleRate('DZgkU5KApiT',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DZgkU5KApiT">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DZgkU5KApiT"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DYvUeq1OTtj/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DYvUeq1OTtj">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DYvUeq1OTtj/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DYvUeq1OTtj/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005010734379606.html?spm=a2g0o.imagesearchproductlist.main.5.68ecs8Exs8Exk2&algo_pvid=4b526d76-751e-45f6-bb50-2389af5cbd23&pdp_ext_f=%7B%22order%22%3A%225106%22%2C%22fromPage%22%3A%22search%22%7D&utparam-url=scene%3Aimage_search%7Cquery_from%3Apc_web_image_search%7Cx_object_id%3A1005010734379606%7C_p_origin_prod%3A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DY4sq0VR3dO/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DYvUeq1OTtj" onchange="toggleRate('DYvUeq1OTtj',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DYvUeq1OTtj">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DYvUeq1OTtj"></div>
+      </div>
+    </div>
+      </div></div></div><div class="row"><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DY4sq0VR3dO/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DY4sq0VR3dO">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DY4sq0VR3dO/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DY4sq0VR3dO/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005009097940014.html?aff_fcid=9f5b2e03ec2c4f238743702aecb1b05f-1782088426494-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=a86dedb582ec45c88c341045a3310854-1782088507868-09616-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZaQD4FulxV/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DY4sq0VR3dO" onchange="toggleRate('DY4sq0VR3dO',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DY4sq0VR3dO">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DY4sq0VR3dO"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZaQD4FulxV/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DZaQD4FulxV">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DZaQD4FulxV/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DZaQD4FulxV/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005011857022747.html?aff_fcid=058723d911d3416b999b35bd3c079898-1782134427666-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=ca5d97acb5a04fc2bb40ce8247015c96-1782134509879-09022-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=ca5d97acb5a04fc2bb40ce8247015c96-1782134509879-09022-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZK318BtJIA/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe></div><div class="card-body">
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DZaQD4FulxV" onchange="toggleRate('DZaQD4FulxV',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DZaQD4FulxV">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DZaQD4FulxV"></div>
+      </div>
+    </div>
+      </div></div><div class="card" data-img=""><div class="card-media"><iframe src="https://www.instagram.com/p/DZK318BtJIA/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DZK318BtJIA">
+      <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
+    </div></div><div class="card-body">
       <button class="btn btn-fs-inline" onclick="abrirModal('https://www.instagram.com/p/DZK318BtJIA/embed/')">&#x26F6; Ver em tela cheia</button>
       <div class="card-links">
         <a class="btn btn-ig" href="https://www.instagram.com/p/DZK318BtJIA/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Abrir no Instagram</a>
         <a class="btn btn-ali" href="https://pt.aliexpress.com/item/1005012164593550.html?aff_fcid=886039f5e50645adae05c933e958fa99-1782087882540-00000-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&afSmartRedirect=y&connected_by=huntdropship&aff_fcid=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&tt=CPS_NORMAL&aff_fsk=_c3nfv9XL&aff_platform=portals-tool&sk=_c3nfv9XL&aff_trace_key=9104f9c853554b1f947d7808429b4e63-1782087963699-00184-_c3nfv9XL&terminal_id=02a6e30b8a50498cb486476662e3c567&afSmartRedirect=y" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4v19.2C0 22.92 1.08 24 2.4 24h19.2c1.32 0 2.4-1.08 2.4-2.4V2.4C24 1.08 22.92 0 21.6 0zm-4.5 17.1l-1.65-4.2H8.55L6.9 17.1H4.5L10.8 6.9h2.4l6.3 10.2h-2.4z"/></svg> Ver no AliExpress</a>
-      </div></div></div></div></div>
+      </div>
+      <div class="rate-box">
+      <label class="rate-toggle"><input type="checkbox" id="cb-DZK318BtJIA" onchange="toggleRate('DZK318BtJIA',this.checked)"/> Avaliar produto</label>
+      <div class="rate-panel" id="panel-DZK318BtJIA">
+        <p class="rate-hint">De 1 a 10, qual sua nota?</p>
+        <div class="rate-scale" id="scale-DZK318BtJIA"></div>
+      </div>
+    </div>
+      </div></div></div></div>
 <footer>Mauro Rosa · Todos os produtos selecionados manualmente</footer>
 
 <div class="modal-overlay" id="modal" onclick="fecharModal(event)">
@@ -134,5 +299,67 @@ function cp(l,b){navigator.clipboard.writeText(l).then(()=>{const m=b.parentElem
 function abrirModal(src){document.getElementById('modal-iframe').src=src;document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden'}
 function fecharModal(e){if(e&&e.target.closest('.modal-inner'))return;document.getElementById('modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharModal()})
+
+const RATE_API = 'https://artbross.com/produtos-semana';
+function jaVotou(sc){ return localStorage.getItem('voto_'+sc) !== null; }
+function getVoto(sc){ return localStorage.getItem('voto_'+sc); }
+function setVoto(sc,nota){ localStorage.setItem('voto_'+sc, nota); }
+
+function toggleRate(sc, checked){
+  const panel = document.getElementById('panel-'+sc);
+  if (panel) panel.style.display = checked ? 'block' : 'none';
+}
+
+function montarEscala(sc){
+  const el = document.getElementById('scale-'+sc);
+  if (!el || el.dataset.montado) return;
+  el.dataset.montado = '1';
+  for (let n = 1; n <= 10; n++){
+    const b = document.createElement('button');
+    b.textContent = n;
+    b.className = 'rate-num';
+    b.type = 'button';
+    b.onclick = () => enviarNota(sc, n, b);
+    el.appendChild(b);
+  }
+}
+
+function aplicarSelo(sc, nota){
+  const badge = document.getElementById('badge-'+sc);
+  if (!badge) return;
+  badge.classList.add('show');
+  badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
+  const alvo = nota > 7 ? '.seg-aprovado' : (nota >= 5 ? '.seg-talvez' : '.seg-ruim');
+  const el = badge.querySelector(alvo);
+  if (el) el.classList.add('on');
+}
+
+async function enviarNota(sc, nota, btnEl){
+  document.querySelectorAll('#scale-'+sc+' .rate-num').forEach(b => b.classList.remove('sel'));
+  if (btnEl) btnEl.classList.add('sel');
+  aplicarSelo(sc, nota);
+  setVoto(sc, nota);
+  try {
+    await fetch(RATE_API + '/salvar.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({produto_id: sc, nota: nota})
+    });
+  } catch(e) {}
+}
+
+document.querySelectorAll('.rate-panel').forEach(p => montarEscala(p.id.replace('panel-','')));
+
+document.querySelectorAll('[id^="cb-"]').forEach(cb => {
+  const sc = cb.id.replace('cb-','');
+  if (jaVotou(sc)){
+    cb.checked = true;
+    toggleRate(sc, true);
+    const nota = parseInt(getVoto(sc), 10);
+    aplicarSelo(sc, nota);
+    const btn = [...document.querySelectorAll('#scale-'+sc+' .rate-num')].find(b => parseInt(b.textContent,10) === nota);
+    if (btn) btn.classList.add('sel');
+  }
+});
 </script>
 </body></html>
