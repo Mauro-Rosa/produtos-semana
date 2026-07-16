@@ -301,21 +301,13 @@ function abrirModal(src){document.getElementById('modal-iframe').src=src;documen
 function fecharModal(e){if(e&&e.target.closest('.modal-inner'))return;document.getElementById('modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharModal()})
 
-const RATE_API = 'https://artbross.com/produtos-semana';
-function jaVotou(sc){ return localStorage.getItem('voto_'+sc) !== null; }
-function getVoto(sc){ return localStorage.getItem('voto_'+sc); }
-function setVoto(sc,nota){ localStorage.setItem('voto_'+sc, nota); }
+const RATE_API = 'https://dash.artbross.com/produtos-semana';
+// Nota única por produto (não é média de várias pessoas) — guardada no servidor,
+// pra aparecer igual em qualquer navegador/computador que abrir o site.
 
 function toggleRate(sc, checked){
   const panel = document.getElementById('panel-'+sc);
   if (panel) panel.style.display = checked ? 'block' : 'none';
-  if (!checked) {
-    const badge = document.getElementById('badge-'+sc);
-    if (badge) {
-      badge.classList.remove('show');
-      badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
-    }
-  }
 }
 
 function montarEscala(sc){
@@ -334,40 +326,51 @@ function montarEscala(sc){
 
 function aplicarSelo(sc, nota){
   const badge = document.getElementById('badge-'+sc);
-  if (!badge) return;
-  badge.classList.add('show');
-  badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
-  const alvo = nota > 7 ? '.seg-aprovado' : (nota >= 5 ? '.seg-talvez' : '.seg-ruim');
-  const el = badge.querySelector(alvo);
-  if (el) el.classList.add('on');
+  if (badge) {
+    badge.classList.add('show');
+    badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
+    const alvo = nota > 7 ? '.seg-aprovado' : (nota >= 5 ? '.seg-talvez' : '.seg-ruim');
+    const el = badge.querySelector(alvo);
+    if (el) el.classList.add('on');
+  }
+  document.querySelectorAll('#scale-'+sc+' .rate-num').forEach(b => {
+    b.classList.toggle('sel', parseInt(b.textContent,10) === nota);
+  });
 }
 
 async function enviarNota(sc, nota, btnEl){
-  document.querySelectorAll('#scale-'+sc+' .rate-num').forEach(b => b.classList.remove('sel'));
-  if (btnEl) btnEl.classList.add('sel');
-  aplicarSelo(sc, nota);
-  setVoto(sc, nota);
+  aplicarSelo(sc, nota); // atualiza a tela na hora, sem esperar o servidor responder
   try {
-    await fetch(RATE_API + '/salvar.php', {
+    const res = await fetch(RATE_API + '/salvar.php', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({produto_id: sc, nota: nota})
     });
+    await res.json();
+  } catch(e) {}
+}
+
+async function carregarNotas(){
+  // Busca do servidor a nota já dada em cada produto — funciona em qualquer navegador,
+  // mesmo que a nota tenha sido dada em outro aparelho.
+  try {
+    const res = await fetch(RATE_API + '/notas.php');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.ok && data.notas) {
+      Object.keys(data.notas).forEach(sc => {
+        const info = data.notas[sc];
+        if (info && info.nota) {
+          aplicarSelo(sc, info.nota);
+          const cb = document.getElementById('cb-'+sc);
+          if (cb) { cb.checked = true; toggleRate(sc, true); }
+        }
+      });
+    }
   } catch(e) {}
 }
 
 document.querySelectorAll('.rate-panel').forEach(p => montarEscala(p.id.replace('panel-','')));
-
-document.querySelectorAll('[id^="cb-"]').forEach(cb => {
-  const sc = cb.id.replace('cb-','');
-  if (jaVotou(sc)){
-    cb.checked = true;
-    toggleRate(sc, true);
-    const nota = parseInt(getVoto(sc), 10);
-    aplicarSelo(sc, nota);
-    const btn = [...document.querySelectorAll('#scale-'+sc+' .rate-num')].find(b => parseInt(b.textContent,10) === nota);
-    if (btn) btn.classList.add('sel');
-  }
-});
+carregarNotas();
 </script>
 </body></html>
