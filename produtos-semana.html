@@ -58,22 +58,8 @@ footer{text-align:center;margin-top:40px;color:#ccc;font-size:.78rem}
 .rate-num{width:28px;height:28px;padding:0;font-size:12px;border-radius:6px;background:#f4f4f4;border:1px solid #e2e2e2;color:#333;cursor:pointer}
 .rate-num.sel{background:#111;color:#fff;border-color:#111}
 .media-click{position:absolute;inset:0;z-index:1;cursor:pointer;background:transparent}
-.unlock-bar{max-width:420px;margin:0 auto 28px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
-.unlock-bar input{border:1px solid #ddd;border-radius:8px;padding:8px 12px;font-size:.82rem;flex:1;min-width:160px}
-.unlock-bar input:focus{outline:none;border-color:#999}
-.unlock-bar button{background:#111;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap}
-.unlock-bar button:hover{opacity:.88}
-.unlock-bar.liberado input,.unlock-bar.liberado button{display:none}
-.unlock-msg{font-size:.78rem;color:#999;width:100%;text-align:center}
-.unlock-msg.ok{color:#22a06b}
-.unlock-msg.err{color:#e24b4a}
 </style></head><body>
 <header><div class="badge">📦 Seleção Semanal</div><h1>Produtos da Semana</h1><p>Atualizado toda semana · Mauro Rosa</p></header>
-<div class="unlock-bar" id="unlock-bar">
-  <input type="password" id="unlock-senha" placeholder="Senha do professor" autocomplete="off"/>
-  <button type="button" onclick="liberarSessao()">Liberar avaliação</button>
-  <span class="unlock-msg" id="unlock-msg"></span>
-</div>
 <div class="grid-wrap"><div class="row"><div class="card" data-img=""><div class="card-media"><div class="media-click" onclick="abrirModal('https://www.instagram.com/p/DYOmqqkOspL/embed/')"></div><iframe src="https://www.instagram.com/p/DYOmqqkOspL/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DYOmqqkOspL">
       <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
     </div></div><div class="card-body">
@@ -315,43 +301,21 @@ function abrirModal(src){document.getElementById('modal-iframe').src=src;documen
 function fecharModal(e){if(e&&e.target.closest('.modal-inner'))return;document.getElementById('modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharModal()})
 
-const RATE_API = 'https://dash.artbross.com/produtos-semana';
-// Nota única por produto (não é média de várias pessoas) — guardada no servidor,
-// pra aparecer igual em qualquer navegador/computador que abrir o site.
-
-let senhaSessao = null; // fica guardada só em memória, some ao fechar/recarregar a aba
-
-async function liberarSessao(){
-  const input = document.getElementById('unlock-senha');
-  const msg = document.getElementById('unlock-msg');
-  const senha = input.value.trim();
-  if (!senha) { msg.textContent = 'Digite a senha.'; msg.className = 'unlock-msg err'; return; }
-  msg.textContent = 'Verificando...'; msg.className = 'unlock-msg';
-  try {
-    const res = await fetch(RATE_API + '/verificar-senha.php', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({senha})
-    });
-    const data = await res.json();
-    if (data.ok) {
-      senhaSessao = senha;
-      document.getElementById('unlock-bar').classList.add('liberado');
-      msg.textContent = '✓ Avaliação liberada pra essa sessão.';
-      msg.className = 'unlock-msg ok';
-    } else {
-      msg.textContent = 'Senha incorreta.';
-      msg.className = 'unlock-msg err';
-    }
-  } catch(e) {
-    msg.textContent = 'Não foi possível verificar agora.';
-    msg.className = 'unlock-msg err';
-  }
-}
+const RATE_API = 'https://artbross.com/produtos-semana';
+function jaVotou(sc){ return localStorage.getItem('voto_'+sc) !== null; }
+function getVoto(sc){ return localStorage.getItem('voto_'+sc); }
+function setVoto(sc,nota){ localStorage.setItem('voto_'+sc, nota); }
 
 function toggleRate(sc, checked){
   const panel = document.getElementById('panel-'+sc);
   if (panel) panel.style.display = checked ? 'block' : 'none';
+  if (!checked) {
+    const badge = document.getElementById('badge-'+sc);
+    if (badge) {
+      badge.classList.remove('show');
+      badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
+    }
+  }
 }
 
 function montarEscala(sc){
@@ -370,65 +334,40 @@ function montarEscala(sc){
 
 function aplicarSelo(sc, nota){
   const badge = document.getElementById('badge-'+sc);
-  if (badge) {
-    badge.classList.add('show');
-    badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
-    const alvo = nota > 7 ? '.seg-aprovado' : (nota >= 5 ? '.seg-talvez' : '.seg-ruim');
-    const el = badge.querySelector(alvo);
-    if (el) el.classList.add('on');
-  }
-  document.querySelectorAll('#scale-'+sc+' .rate-num').forEach(b => {
-    b.classList.toggle('sel', parseInt(b.textContent,10) === nota);
-  });
+  if (!badge) return;
+  badge.classList.add('show');
+  badge.querySelectorAll('.seg').forEach(s => s.classList.remove('on'));
+  const alvo = nota > 7 ? '.seg-aprovado' : (nota >= 5 ? '.seg-talvez' : '.seg-ruim');
+  const el = badge.querySelector(alvo);
+  if (el) el.classList.add('on');
 }
 
 async function enviarNota(sc, nota, btnEl){
-  if (!senhaSessao) {
-    const msg = document.getElementById('unlock-msg');
-    msg.textContent = 'Digite a senha do professor ali em cima antes de avaliar.';
-    msg.className = 'unlock-msg err';
-    document.getElementById('unlock-senha').focus();
-    return;
-  }
-  aplicarSelo(sc, nota); // atualiza a tela na hora, sem esperar o servidor responder
+  document.querySelectorAll('#scale-'+sc+' .rate-num').forEach(b => b.classList.remove('sel'));
+  if (btnEl) btnEl.classList.add('sel');
+  aplicarSelo(sc, nota);
+  setVoto(sc, nota);
   try {
-    const res = await fetch(RATE_API + '/salvar.php', {
+    await fetch(RATE_API + '/salvar.php', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({produto_id: sc, nota: nota, senha: senhaSessao})
+      body: JSON.stringify({produto_id: sc, nota: nota})
     });
-    const data = await res.json();
-    if (!data.ok) {
-      senhaSessao = null;
-      document.getElementById('unlock-bar').classList.remove('liberado');
-      const msg = document.getElementById('unlock-msg');
-      msg.textContent = 'A senha expirou ou está errada — libere de novo ali em cima.';
-      msg.className = 'unlock-msg err';
-    }
-  } catch(e) {}
-}
-
-async function carregarNotas(){
-  // Busca do servidor a nota já dada em cada produto — funciona em qualquer navegador,
-  // mesmo que a nota tenha sido dada em outro aparelho.
-  try {
-    const res = await fetch(RATE_API + '/notas.php');
-    if (!res.ok) return;
-    const data = await res.json();
-    if (data.ok && data.notas) {
-      Object.keys(data.notas).forEach(sc => {
-        const info = data.notas[sc];
-        if (info && info.nota) {
-          aplicarSelo(sc, info.nota);
-          const cb = document.getElementById('cb-'+sc);
-          if (cb) { cb.checked = true; toggleRate(sc, true); }
-        }
-      });
-    }
   } catch(e) {}
 }
 
 document.querySelectorAll('.rate-panel').forEach(p => montarEscala(p.id.replace('panel-','')));
-carregarNotas();
+
+document.querySelectorAll('[id^="cb-"]').forEach(cb => {
+  const sc = cb.id.replace('cb-','');
+  if (jaVotou(sc)){
+    cb.checked = true;
+    toggleRate(sc, true);
+    const nota = parseInt(getVoto(sc), 10);
+    aplicarSelo(sc, nota);
+    const btn = [...document.querySelectorAll('#scale-'+sc+' .rate-num')].find(b => parseInt(b.textContent,10) === nota);
+    if (btn) btn.classList.add('sel');
+  }
+});
 </script>
 </body></html>
