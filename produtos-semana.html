@@ -67,13 +67,20 @@ footer{text-align:center;margin-top:40px;color:#ccc;font-size:.78rem}
 .unlock-msg{font-size:.78rem;color:#999;width:100%;text-align:center}
 .unlock-msg.ok{color:#22a06b}
 .unlock-msg.err{color:#e24b4a}
-</style></head><body>
+body{-webkit-user-select:none;-ms-user-select:none;user-select:none}
+body.locked{overflow:hidden;height:100vh}
+.unlock-bar{position:relative;z-index:600}
+.lock-overlay{display:none;position:fixed;inset:0;background:rgba(244,244,244,.85);backdrop-filter:blur(2px);z-index:500}
+body.locked .lock-overlay{display:flex;align-items:flex-start;justify-content:center;padding-top:120px}
+.lock-msg{background:#111;color:#fff;font-size:.85rem;font-weight:600;padding:10px 20px;border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+</style></head><body class="locked" oncontextmenu="return false">
 <header><div class="badge">📦 Seleção Semanal</div><h1>Produtos da Semana</h1><p>Atualizado toda semana · Mauro Rosa</p></header>
 <div class="unlock-bar" id="unlock-bar">
   <input type="password" id="unlock-senha" placeholder="Digite a senha Dougão" autocomplete="off"/>
   <button type="button" onclick="liberarSessao()">Liberar avaliação</button>
   <span class="unlock-msg" id="unlock-msg"></span>
 </div>
+<div class="lock-overlay" id="lock-overlay"><div class="lock-msg">🔒 Digite a senha acima para liberar o conteúdo</div></div>
 <div class="grid-wrap"><div class="row"><div class="card" data-img=""><div class="card-media"><div class="media-click" onclick="abrirModal('https://www.instagram.com/p/DYnJYlCopI4/embed/')"></div><iframe src="https://www.instagram.com/p/DYnJYlCopI4/embed/" scrolling="no" allowtransparency="true" loading="lazy"></iframe><div class="card-badge" id="badge-DYnJYlCopI4">
       <span class="seg seg-ruim">Ruim</span><span class="seg seg-talvez">Talvez</span><span class="seg seg-aprovado">Aprovado</span>
     </div></div><div class="card-body">
@@ -390,6 +397,14 @@ function abrirModal(src){document.getElementById('modal-iframe').src=src;documen
 function fecharModal(e){if(e&&e.target.closest('.modal-inner'))return;document.getElementById('modal').classList.remove('open');document.getElementById('modal-iframe').src='';document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharModal()})
 
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keydown', function(e){
+  const k = (e.key||'').toLowerCase();
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (k==='i'||k==='j'||k==='c')) || (e.ctrlKey && (k==='u'||k==='s'))) {
+    e.preventDefault();
+  }
+});
+
 const RATE_API = 'https://dash.artbross.com/produtos-semana';
 // Nota única por produto (não é média de várias pessoas) — guardada no servidor,
 // pra aparecer igual em qualquer navegador/computador que abrir o site.
@@ -412,6 +427,7 @@ async function liberarSessao(){
     if (data.ok) {
       senhaSessao = senha;
       document.getElementById('unlock-bar').classList.add('liberado');
+      document.body.classList.remove('locked');
       msg.textContent = '✓ Avaliação liberada pra essa sessão.';
       msg.className = 'unlock-msg ok';
     } else {
